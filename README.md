@@ -1,6 +1,6 @@
 # Autobin2bag
 This repository is forked from *https://github.com/clynamen/nuscenes2bag*.
-It is adjusted so that it can be use to convert a file from Autobin dataset into a Rosbag
+It is adjusted so that it can be use to convert files from Autobin dataset into a Rosbag
 
 Its loads the json metadata and then sample files for each scene and converted into a respected ROS msg and written into a bag.
 
