@@ -1,75 +1,43 @@
-# nuScenes2Bag
+# Autobin2bag
+This repository is forked from *https://github.com/clynamen/nuscenes2bag*.
+It is adjusted so that it can be use to convert a file from Autobin dataset into a Rosbag
 
- - Ubuntu 18.04 Melodic: ![](https://github.com/clynamen/nuscenes2bag/workflows/ubuntu_1804_melodic/badge.svg)
- - Ubuntu 16.04 Kinetic: ![](https://github.com/clynamen/nuscenes2bag/workflows/ubuntu_1604_kinetic/badge.svg)
+Its loads the json metadata and then sample files for each scene and converted into a respected ROS msg and written into a bag.
 
-Simple C++ tool for converting the [nuScenes](https://www.nuscenes.org/) dataset from [Aptiv](https://www.aptiv.com).
+## Installation
 
-The tool loads the json metadata and then the sample files for each scene. The sample are converted in a suitable ROS msg and written to a bag. TF tree is also written.
+**ROS-Noetic**
 
-Probably the original dataset is also collected by Aptiv using ROS, so most data has the same format.
-
-![](images/ros_preview.png)
-
-## Install
-
-The `master` branch targets Ubuntu 18.04 and newer.
-The `ubuntu_1604` branch uses C++11 and has been tested on Ubuntu 16.04.
-
-The tool is a normal ROS package. Place it under a workspace and build it with catkin.
-
-## Usage
+copy this repository into a folder *catkin_ws/src*. Resource your ROS-Noetic and build the node.
+```
+$ mkdir -p ~/catkin_ws/src
+$ cd ~/catkin_ws/src
+$ git clone https://github.com/khalisfadil/nuscenes2bag.git
+$ cd ..
+$ source /opt/ros/noetic/setup.bash
+$ catkin_make
+$ source devel/setup.bash
+```
 
 **Command-line arguments:**
+
 `--dataroot`: The path to the directory that contains the 'maps', 'samples' and 'sweeps'.
-`--version`: (optional) The sub-directory that contains the metadata .json files. Default = "v1.0-mini"
 
+`--version`: (optional) The sub-directory that contains the metadata .json files. Default = "v2.0"
 
-**Converting the 'mini' dataset:**
+**Dataroot**
 
-Convert one scene to a bag file, saved in a new directory:
-Scene '0061' will be saved to 'nuscenes_bags/61.bag'
-```
-rosrun nuscenes2bag nuscenes2bag --scene_number 0061 --dataroot /path/to/nuscenes_mini_meta_v1.0/ --out nuscenes_bags/
-```
+The `--dataroot` supposely have this sub-folder inside:
 
+1. __Sweeps__ - to put all your sweeps data
 
-Convert the entire dataset to bag files:
-This processes 4 scenes simultaneously, however the scene numbers are not processed in numerical order.
-```
-rosrun nuscenes2bag nuscenes2bag --dataroot /path/to/nuscenes_mini_meta_v1.0/ --out nuscenes_bags/ --jobs 4
-```
+2. __Samples__ - to put all your samples data
 
+3. __v2.0__ - include metadata which in json format
 
-**Converting other datasets:**
+**Converting datasets:**
 
 Convert a dataset with the metadata in a sub-directory called 'v2.0':
 ```
 rosrun nuscenes2bag nuscenes2bag --dataroot /path/to/nuscenes_data_v2.0/ --version v2.0 --out nuscenes_bags/ --jobs 4
 ```
-
-
-## Status
-
-Currently work in progress
-
-- [x] Image support
-- [x] Pointcloud support
-- [x] Radar support
-- [x] EgoPose and TF support
-- [x] Show progress
-- [ ] Better usability
-
-Create an Github issue for suggestion, bug and requests.
-
-## Thirdparty
-
-Built using:
-
- - https://github.com/nlohmann/json
- - http://github.com/en4bz/ThreadPool
-
-## Authors
-
- - [clynamen](https://github.com/clynamen/)
- - [ChernoA](https://github.com/ChernoA)
