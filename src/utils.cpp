@@ -27,7 +27,8 @@ ros::Time
 stampUs2RosTime(uint64_t stampUs)
 {
   ros::Time t;
-  t = t.fromNSec(stampUs * 1000);
+  // t = t.fromNSec(stampUs * 1000); //this is for microseconds
+  t = t.fromNSec(stampUs * 1000000000); // This is for seconds
   return t;
 }
 
