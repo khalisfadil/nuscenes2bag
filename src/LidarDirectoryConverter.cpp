@@ -66,16 +66,19 @@ inline std::vector<float>
 readBinaryPcdFile(std::ifstream& fin)
 {
   std::vector<float> fileValues;
-  uint8_t skipCounter = 0;
+  //uint8_t skipCounter = 0;
   float f;
-  while (fin.read(reinterpret_cast<char*>(&f), sizeof(float))) {
+  /*while (fin.read(reinterpret_cast<char*>(&f), sizeof(float))) {
     // skip 5th value of each point
-    if (skipCounter < 4) {
+    if (skipCounter <4) {
       fileValues.push_back(f);
       skipCounter++;
     } else {
       skipCounter = 0;
     }
+  }*/
+  while (fin.read(reinterpret_cast<char*>(&f), sizeof(float))) {
+    fileValues.push_back(f);
   }
 
   return fileValues;
@@ -94,7 +97,6 @@ readLidarFile(const fs::path& filePath)
   try {
     std::ifstream fin(filePath.string(), std::ios::binary);
     const std::vector<float> fileValues = readBinaryPcdFile(fin);
-
     if (fileValues.size() % 4 != 0) {
       throw UnableToParseFileException(filePath.string());
     }
