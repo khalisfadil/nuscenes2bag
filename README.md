@@ -8,7 +8,7 @@ Its loads the json metadata and then sample files for each scene and converted i
 
 **ROS-Noetic**
 
-copy this repository into a folder *catkin_ws/src*. Resource your ROS-Noetic and build the node.
+clone this repository into a folder *catkin_ws/src*. Resource your ROS-Noetic and build the node.
 ```
 $ mkdir -p ~/catkin_ws/src
 $ cd ~/catkin_ws/src
